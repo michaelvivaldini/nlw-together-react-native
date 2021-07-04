@@ -5,6 +5,7 @@ import Header from '../../components/Header/Header'
 import { styles } from './style'
 import CategorySelect from '../../components/CategorySelect/CategorySelect'
 import { RectButton } from 'react-native-gesture-handler'
+import uuid from 'react-native-uuid'
 
 import { Feather } from '@expo/vector-icons'
 import { theme } from '../../global/styles/theme'
@@ -15,11 +16,23 @@ import { Button } from '../../components/Button/Button'
 import ModalView from '../../components/ModalView/ModalView'
 import { GuildsScreen } from '../Guilds/GuildsScreen'
 import { GuildProps } from '../../Guild/Guild'
+import AsyncStorage from '@react-native-async-storage/async-storage'
+import { COLLECTION_APPOINTMENTS } from '../../configs/database'
+import { useNavigation } from '@react-navigation/core'
 
 export default function AppointmentCreateScreen() {
-  const [category, setCategory] = useState('');
   const [showGuildModal, setShowGuildModal] = useState(false);
+
+  const [category, setCategory] = useState('');
   const [selectedGuild, setSelectedGuild] = useState<GuildProps>({} as GuildProps);
+
+  const [day, setDay] = useState('');
+  const [month, setMonth] = useState('');
+  const [hour, setHour] = useState('');
+  const [minute, setMinute] = useState('');
+  const [description, setDescription] = useState('');
+
+  const navigation = useNavigation();
 
   function handleCategorySelect(categoryId: string) {
     setCategory(categoryId);
@@ -36,6 +49,26 @@ export default function AppointmentCreateScreen() {
   function handleGuildSelect(guild: GuildProps) {
     setSelectedGuild(guild);
     handleCloseGuildModal();
+  }
+
+  async function handleSave() {
+    const newAppointment = {
+      id: uuid.v4(),
+      category,
+      guild: selectedGuild,
+      date: `${day}/${month} às ${hour}:${minute}h`,
+      description,
+    }
+
+    const storage = await AsyncStorage.getItem(COLLECTION_APPOINTMENTS);
+    const appointments = storage ? JSON.parse(storage) : [];
+
+    await AsyncStorage.setItem(
+      COLLECTION_APPOINTMENTS,
+      JSON.stringify([...appointments, newAppointment])
+    )
+
+    navigation.navigate('Home');
   }
 
   return (
@@ -82,17 +115,29 @@ export default function AppointmentCreateScreen() {
               <View>
                 <Text style={[styles.label, { marginBottom: 12 }]}>Dia e mês</Text>
                 <View style={styles.column}>
-                  <SmallInput maxLength={2} />
+                  <SmallInput
+                    maxLength={2}
+                    onChangeText={setDay}
+                  />
                   <Text style={styles.divider}>/</Text>
-                  <SmallInput maxLength={2} />
+                  <SmallInput
+                    maxLength={2}
+                    onChangeText={setMonth}
+                  />
                 </View>
               </View>
               <View>
                 <Text style={[styles.label, { marginBottom: 12 }]}>Hora e minuto</Text>
                 <View style={styles.column}>
-                  <SmallInput maxLength={2} />
+                  <SmallInput
+                    maxLength={2}
+                    onChangeText={setHour}
+                  />
                   <Text style={styles.divider}>:</Text>
-                  <SmallInput maxLength={2} />
+                  <SmallInput
+                    maxLength={2}
+                    onChangeText={setMinute}
+                  />
                 </View>
               </View>
             </View>
@@ -111,11 +156,15 @@ export default function AppointmentCreateScreen() {
               maxLength={100}
               numberOfLines={5}
               autoCorrect={false}
+              onChangeText={setDescription}
             />
           </View>
         </ScrollView>
         <View style={styles.footer}>
-          <Button title="Agendar" />
+          <Button
+            title="Agendar"
+            onPress={handleSave}
+          />
         </View>
       </Background>
       <ModalView visible={showGuildModal} closeModal={handleCloseGuildModal}>

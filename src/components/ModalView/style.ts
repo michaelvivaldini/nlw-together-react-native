@@ -13,7 +13,7 @@ export const styles = StyleSheet.create({
   },
   bar: {
     width: 39,
-    height: Inter_200ExtraLight,
+    height: 1,
     borderRadius: 2,
     backgroundColor: theme.colors.secondary30,
     alignSelf: 'center',
