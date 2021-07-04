@@ -4,12 +4,10 @@ import GuildIcon from '../components/GuildIcon/GuildIcon'
 import { styles } from './style'
 import { Feather } from '@expo/vector-icons'
 import { theme } from '../global/styles/theme'
-import { Game } from '../utils/games'
 
 export type GuildProps = {
   id: string;
   name: string;
-  game: Game;
   icon?: string;
   owner: boolean;
 }
@@ -25,7 +23,7 @@ export default function Guild({ guild, ...rest }: Props) {
       activeOpacity={0.7}
       {...rest}
     >
-      <GuildIcon uri={guild.icon} />
+      <GuildIcon guildId={guild.id} iconId={guild.icon} />
       <View style={styles.content}>
         <View>
           <Text style={styles.title}>{guild.name}</Text>

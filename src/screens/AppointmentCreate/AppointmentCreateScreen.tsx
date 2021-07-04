@@ -13,7 +13,7 @@ import SmallInput from '../../components/SmallInput/SmallInput'
 import TextArea from '../../components/TextArea/TextArea'
 import { Button } from '../../components/Button/Button'
 import ModalView from '../../components/ModalView/ModalView'
-import Guilds from '../Guilds/GuildsScreen'
+import { GuildsScreen } from '../Guilds/GuildsScreen'
 import { GuildProps } from '../../Guild/Guild'
 
 export default function AppointmentCreateScreen() {
@@ -42,7 +42,6 @@ export default function AppointmentCreateScreen() {
     <KeyboardAvoidingView
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       style={styles.container}
-    // keyboardVerticalOffset={100}
     ><Background>
         <ScrollView>
           <Header
@@ -64,15 +63,13 @@ export default function AppointmentCreateScreen() {
             <RectButton onPress={handleOpenGuildModal}>
               <View style={styles.select}>
                 {
-                  selectedGuild.icon ? <GuildIcon uri={selectedGuild.icon} showBorder={false} /> : <View style={styles.image} />
+                  selectedGuild.icon ?
+                    <GuildIcon guildId={selectedGuild.id} iconId={selectedGuild.icon} showBorder={false} />
+                    :
+                    <View style={styles.image} />
                 }
                 <View style={styles.selectBody}>
                   <Text style={styles.label}>{selectedGuild.name ? selectedGuild.name : 'Selecione um servidor'}</Text>
-                  {selectedGuild.game &&
-                    <Text style={styles.charLimit}>
-                      {selectedGuild.game}
-                    </Text>
-                  }
                 </View>
                 <Feather
                   name="chevron-right"
@@ -122,7 +119,7 @@ export default function AppointmentCreateScreen() {
         </View>
       </Background>
       <ModalView visible={showGuildModal} closeModal={handleCloseGuildModal}>
-        <Guilds handleGuildSelect={handleGuildSelect} />
+        <GuildsScreen handleGuildSelect={handleGuildSelect} />
       </ModalView>
     </KeyboardAvoidingView>
   )

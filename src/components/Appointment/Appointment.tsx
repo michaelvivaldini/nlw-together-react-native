@@ -34,14 +34,12 @@ export default function Appointment({ data, ...rest }: Props) {
   return (
     <RectButton {...rest}>
       <View style={styles.container}>
-
-        <GuildIcon uri={data.guild.icon} />
+        <GuildIcon guildId={data.guild.id} iconId={data.guild.icon} />
         <View style={styles.content}>
           <View style={styles.header}>
             <Text style={styles.title}>{data.guild.name}</Text>
             <Text style={styles.category}>{category.title}</Text>
           </View>
-          <Text style={styles.category}>{data.guild.game}</Text>
           <View style={styles.footer}>
             <View style={styles.dateInfo}>
               <CalendarSvg />

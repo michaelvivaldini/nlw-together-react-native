@@ -10,8 +10,6 @@ import ListDivider from '../../components/ListDivider/ListDivider'
 import { Background } from '../../components/Background/Background'
 import { useNavigation } from '@react-navigation/core'
 
-import { guilds } from '../Guilds/GuildsScreen'
-
 export function HomeScreen() {
   const [category, setCategory] = useState('');
 
@@ -28,56 +26,96 @@ export function HomeScreen() {
   const appointments: AppointmentProps[] = [
     {
       id: '1',
-      guild: guilds[0],
+      guild: {
+        id: '1',
+        name: 'teste',
+        owner: false,
+        icon: 'image.png'
+      },
       category: '1',
       date: '22/06 às 20:40',
       description: 'É hoje que vamos chegar ao challenger'
     },
     {
       id: '2',
-      guild: guilds[1],
+      guild: {
+        id: '1',
+        name: 'teste',
+        owner: false,
+        icon: 'image.png'
+      },
       category: '2',
       date: '27/06 às 10:30',
       description: 'Bora dar tiro em newba'
     },
     {
       id: '3',
-      guild: guilds[2],
+      guild: {
+        id: '1',
+        name: 'teste',
+        owner: false,
+        icon: 'image.png'
+      },
       category: '3',
       date: '02/07 às 14:10',
       description: 'Bora jogar cambada'
     },
     {
       id: '4',
-      guild: guilds[3],
+      guild: {
+        id: '1',
+        name: 'teste',
+        owner: false,
+        icon: 'image.png'
+      },
       category: '3',
       date: '02/07 às 14:10',
       description: 'Bora jogar cambada'
     },
     {
       id: '5',
-      guild: guilds[4],
+      guild: {
+        id: '1',
+        name: 'teste',
+        owner: false,
+        icon: 'image.png'
+      },
       category: '3',
       date: '02/07 às 14:10',
       description: 'Bora jogar cambada'
     },
     {
       id: '6',
-      guild: guilds[4],
+      guild: {
+        id: '1',
+        name: 'teste',
+        owner: false,
+        icon: 'image.png'
+      },
       category: '3',
       date: '02/07 às 14:10',
       description: 'Bora jogar cambada'
     },
     {
       id: '7',
-      guild: guilds[3],
+      guild: {
+        id: '1',
+        name: 'teste',
+        owner: false,
+        icon: 'image.png'
+      },
       category: '3',
       date: '02/07 às 14:10',
       description: 'Bora jogar cambada'
     },
     {
       id: '8',
-      guild: guilds[1],
+      guild: {
+        id: '1',
+        name: 'teste',
+        owner: false,
+        icon: 'image.png'
+      },
       category: '3',
       date: '02/07 às 14:10',
       description: 'Bora jogar cambada'
